@@ -1,0 +1,18 @@
+-- Active: 1681067211475@@35.226.146.116@3306@jbl-4415737-diandrey-ecker
+
+CREATE TABLE Cookenu_users (
+	id VARCHAR(255)  PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Cookenu_recipe (
+	id VARCHAR(255)  PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    preparation VARCHAR(255) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    user_id VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES Cookenu_users (id)
+);
