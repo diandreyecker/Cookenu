@@ -30,3 +30,15 @@ export class InvalidPassword extends BaseError {
         super(409, 'Senha inválida, ela deve conter ao menos 6 caracteres.')
     }
 }
+
+export class WrongEmail extends BaseError {
+    constructor() {
+        super(404, "Email não encontrado!")
+    }
+}
+
+export class WrongPassword extends BaseError {
+    constructor() {
+        super(404, "Senha incorreta!")
+    }
+}

@@ -1,15 +1,19 @@
 import { UserDatabase } from "../data/UserDatabase";
 import { BaseError } from "../error/BaseError";
 import * as err from "../error/UserError";
-import { User, UserInputDTO } from "../model/UserDTO";
+import { LoginUserInputDTO, User, UserInputDTO } from "../model/UserDTO";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenGenerator } from "../services/TokenGenerator";
-import { validateEmail } from "../services/validateEmail";
 import { validatePassword } from "../services/validatePassword";
 import { HashManager } from './../services/HashManager';
+import { validateEmail } from './../services/validateEmail';
 
 
 export class UserBusiness {
+
+    userDatabase = new UserDatabase()
+    hashMananger = new HashManager()
+
     public signup = async (input: UserInputDTO) => {
 
         try {
@@ -55,6 +59,40 @@ export class UserBusiness {
 
         } catch (error: any) {
             throw new BaseError(400, error.message);
+        }
+    }
+
+    public login = async (input: LoginUserInputDTO) => {
+
+        try {
+            if (!input.email) {
+                throw new err.MissingEmail()
+            }
+            if (!input.password) {
+                throw new err.MissingPassword()
+            }
+
+            const isEmailValid = validateEmail(input.email)
+            if (!isEmailValid) {
+                throw new err.InvalidEmail()
+            }
+
+            const user = await this.userDatabase.findUser(input.email)
+            if (!user) {
+                throw new err.WrongEmail()
+            }
+
+            const comparePassword: boolean = await this.hashMananger.compareHash(input.password, user.password)
+            if (!comparePassword) {
+                throw new err.WrongPassword()
+            }
+
+            const tokenGenerate = new TokenGenerator()
+            const token = await tokenGenerate.generateToken(user.id)
+            return token
+
+        } catch (error: any) {
+            throw new BaseError(400, error.message)
         }
     }
 }
