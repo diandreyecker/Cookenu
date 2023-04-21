@@ -15,3 +15,8 @@ Content-Type: application/json
 	"email": "diandrey@teste.com",
 	"password": "1234567"
 }
+
+###
+GET http://localhost:3003/user/profile
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2OTk2NTg4LTAxZDYtNDIxZC1iMDdiLWNmYzU0ODk5OTViMyIsImlhdCI6MTY4MjA4Mzg2NCwiZXhwIjoxNjgyMDg3NDY0fQ.G7c3MHtAgObP16-Sy_nhXD8toiELZtzoXjhqEb2AnN8
+Content-Type: application/json

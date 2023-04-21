@@ -24,4 +24,17 @@ export class UserDatabase extends BaseDatabase {
             throw new BaseError(400, error.message)
         }
     }
+
+    public myProfile = async (id: string) => {
+        try {
+            const result = await UserDatabase
+                .connection(this.USER_TABLE)
+                .select("id", "name", "email")
+                .where({ id })
+            return result[0]
+
+        } catch (error: any) {
+            throw new BaseError(400, error.message)
+        }
+    }
 }

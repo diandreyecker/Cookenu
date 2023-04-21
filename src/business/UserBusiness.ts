@@ -1,7 +1,7 @@
 import { UserDatabase } from "../data/UserDatabase";
 import { BaseError } from "../error/BaseError";
 import * as err from "../error/UserError";
-import { LoginUserInputDTO, User, UserInputDTO } from "../model/UserDTO";
+import { LoginUserInputDTO, User, UserInputDTO, UserProfile } from "../model/UserDTO";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenGenerator } from "../services/TokenGenerator";
 import { validatePassword } from "../services/validatePassword";
@@ -90,6 +90,25 @@ export class UserBusiness {
             const tokenGenerate = new TokenGenerator()
             const token = await tokenGenerate.generateToken(user.id)
             return token
+
+        } catch (error: any) {
+            throw new BaseError(400, error.message)
+        }
+    }
+
+    public myProfile = async (input: string) => {
+
+        try {
+            const token = input
+
+            if (!token) {
+                throw new err.MissingToken()
+            }
+            const tokenGenerator = new TokenGenerator()
+            const data = tokenGenerator.tokenData(token)
+
+            const result = await this.userDatabase.myProfile(data.id)
+            return result
 
         } catch (error: any) {
             throw new BaseError(400, error.message)
