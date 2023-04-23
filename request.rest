@@ -20,3 +20,13 @@ Content-Type: application/json
 GET http://localhost:3003/user/profile
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2OTk2NTg4LTAxZDYtNDIxZC1iMDdiLWNmYzU0ODk5OTViMyIsImlhdCI6MTY4MjA4Mzg2NCwiZXhwIjoxNjgyMDg3NDY0fQ.G7c3MHtAgObP16-Sy_nhXD8toiELZtzoXjhqEb2AnN8
 Content-Type: application/json
+
+###
+POST http://localhost:3003/recipe/create
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2OTk2NTg4LTAxZDYtNDIxZC1iMDdiLWNmYzU0ODk5OTViMyIsImlhdCI6MTY4MjIxMTE1NCwiZXhwIjoxNjgyMjE0NzU0fQ.en8QZL60TwWH2KfStZ0Yv-gN66kQiXNYRDUY23LnCmc
+Content-Type: application/json
+
+{
+	"title": "titulo 2",
+	"description": "descrição2"
+}
